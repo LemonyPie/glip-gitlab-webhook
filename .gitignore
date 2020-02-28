@@ -1,0 +1,6 @@
+.idea
+.vscode
+.env
+.DS_STORE
+node_modules
+nodemon.json
