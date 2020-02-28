@@ -4,24 +4,24 @@ var router = express.Router();
 var hookUrl = process.env.MERGE_REQUEST_HOOK_URL;
 
 router.post('/', function(req, res, next) {
-  const assigneeName = req.body.object_attributes && req.body.object_attributes.assignee && req.body.object_attributes.name || '';
+  console.log('REQUEST BODY: ', JSON.stringify(req.body))
+  const assigneeName = req.body.object_attributes.assignees && req.body.object_attributes.assignees[0] && req.body.object_attributes.assignees[0].name || '';
   const message = (assigneeName ? `@${assigneeName} please` : 'Please') + ` [have a look](${req.body.object_attributes.url})`;
   const user = req.body.user;
   const body = {
     "activity": "Merge request",
     "icon": user && user.avatar_url || '', 
-    "title": `${user && user.name || 'Someone'} submitted a new merge request. \n **${req.body.object_attributes.title}**`,
-    "body": message,
+    "body": `${user && user.name || 'Someone'} submitted a new merge request.`,
     "attachments":[
       {
        "type":"Card",
-       "fallback":"The attachments are not supported by your client.",
-       "color":"#9C1A22",
+       "fallback": `[Merge request](${req.body.object_attributes.url})`,
+       "color":"#fc9403",
        "fields":[
         {
-         "title":"Beer",
-         "value": JSON.stringify(req.body),
-         "style":"Long"
+          "title": `${req.body.object_attributes.title}`,
+          "value": message,
+          "style":"Long"
         }]
       }
     ]
