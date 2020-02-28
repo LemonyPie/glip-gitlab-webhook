@@ -17,7 +17,7 @@ router.post('/', function(req, res, next) {
     const body = {
       "activity": isNewRequest ? 'Merge Request Created' : isResolveWIPStatus ? 'Resolved WIP Status' : 'Merge Request Changed',
       "icon": user && user.avatar_url || '', 
-      "body": `${user && user.name || 'Someone'} submitted a new merge request.`,
+      "body": `${user && user.name || 'Someone'} ${isResolveWIPStatus ? 'Resolved WIP Status' : 'submitted a new merge request'}.`,
       "attachments":[
         {
         "type":"Card",
