@@ -10,8 +10,21 @@ router.post('/', function(req, res, next) {
   const body = {
     "activity": "Merge request",
     "icon": user && user.avatar_url || '', 
-    "title": `${user && user.name || 'Someone'} submitted a new merge request`,
-    "body": message
+    "title": `${user && user.name || 'Someone'} submitted a new merge request. \n **${req.body.object_attributes.title}**`,
+    "body": message,
+    "attachments":[
+      {
+       "type":"Card",
+       "fallback":"The attachments are not supported by your client.",
+       "color":"#9C1A22",
+       "fields":[
+        {
+         "title":"Beer",
+         "value": JSON.stringify(req.body),
+         "style":"Long"
+        }]
+      }
+    ]
   };
   
   axios.post(hookUrl, body)
