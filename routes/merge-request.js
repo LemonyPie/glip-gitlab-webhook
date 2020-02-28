@@ -31,7 +31,7 @@ router.post('/', function(req, res, next) {
             },
             {
               "title": "Status",
-              "value": req.body.object_attributes.status,
+              "value": req.body.object_attributes.merge_status,
               "style": "Short"
             },
             {
