@@ -5,7 +5,7 @@ var hookUrl = process.env.MERGE_REQUEST_HOOK_URL;
 
 router.post('/', function(req, res, next) {
   const assigneeName = req.body.object_attributes.assignee.name;
-  const message = (assigneeName ? `@${assigneeName} please` : 'Please ') + `[have a look](${req.body.object_attributes.url})`;
+  const message = (assigneeName ? `@${assigneeName} please` : 'Please') + ` [have a look](${req.body.object_attributes.url})`;
   const body = {
     "activity": "Merge request",
     "icon": req.body.user.avatar_url,
