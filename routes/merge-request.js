@@ -26,18 +26,17 @@ router.post('/', function(req, res, next) {
         "fields":[
             {
               "title": `${req.body.object_attributes.title}`,
-              "value": message,
-              "style":"Long"
+              "value": message
             },
             {
               "title": "Status",
               "value": req.body.object_attributes.merge_status,
-              "style": "Short"
+              "short": true
             },
             {
               "title": "Target branch",
               "value": req.body.object_attributes.target_branch,
-              "style": "Short"
+              "short": true
             }
           ]
         }
