@@ -5,14 +5,14 @@ const router = express.Router();
 const hookUrl = process.env.MERGE_REQUEST_HOOK_URL;
 
 router.post('/', function(req, res, next) {
-  const isNewRequest = req.body.object_attributes.action !== 'update';
+  const isNewRequest = req.body.object_attributes.action !== 'update' && req.body.object_attributes.last_edited_at === null;
   const isResolveWIPStatus = !isNewRequest && 
     !req.body.object_attributes.work_in_progress &&
     (req.body.changes && req.body.changes.title && req.body.changes.title.previous.includes('WIP'));
   console.log('REQUEST BODY: ', JSON.stringify(req.body), `Is new: ${isNewRequest}`, `Is resolve WIP status: ${isResolveWIPStatus}`)
   if(isNewRequest || isResolveWIPStatus) {
-    const assigneeName = req.body.assignees && req.body.assignees[0] && req.body.assignees[0].name || '';
-    const message = (assigneeName ? `@${assigneeName} please` : 'Please') + ` [have a look](${req.body.object_attributes.url})`;
+    const assignees = req.body.assignees && req.body.assignees.length && req.body.assignees.map(assignee => assignee.name) || [];
+    const message = (assignees.length ? `${assignees.map(assignee => `@${assignee}`).join(' ')} please` : 'Please') + ` [have a look](${req.body.object_attributes.url})`;
     const user = req.body.user;
     const body = {
       "activity": isNewRequest ? 'Merge Request Created' : isResolveWIPStatus ? 'Resolved WIP Status' : 'Merge Request Changed',
