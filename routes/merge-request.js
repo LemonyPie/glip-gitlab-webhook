@@ -29,8 +29,8 @@ router.post('/', function(req, res, next) {
               "value": message
             },
             {
-              "title": "Status",
-              "value": req.body.object_attributes.merge_status,
+              "title": "Project",
+              "value": req.body.project.name,
               "short": true
             },
             {
