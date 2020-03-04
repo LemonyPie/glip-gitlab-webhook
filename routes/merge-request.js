@@ -5,7 +5,7 @@ const router = express.Router();
 const hookUrl = process.env.MERGE_REQUEST_HOOK_URL;
 
 router.post('/', function(req, res, next) {
-  const isNewRequest = req.body.object_attributes.action !== 'update' && req.body.object_attributes.last_edited_at === null;
+  const isNewRequest = req.body.object_attributes.action === 'open';
   const isResolveWIPStatus = !isNewRequest && 
     !req.body.object_attributes.work_in_progress &&
     (req.body.changes && req.body.changes.title && req.body.changes.title.previous.includes('WIP'));
