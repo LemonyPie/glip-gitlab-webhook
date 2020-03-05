@@ -42,6 +42,13 @@ router.post('/', function(req, res, next) {
         }
       ]
     }
+
+    if (req.body.object_attributes.description) {
+      body.attachments.fields.push({
+        "title": "Desctipion",
+        "value": req.body.object_attributes.description
+      });
+    }
   
     axios.post(hookUrl, body)
     .then((response) => {
