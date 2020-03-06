@@ -53,12 +53,12 @@ router.post('/', function(req, res, next) {
     axios.post(hookUrl, body)
     .then((response) => {
       res.status(200);
-      res.end('Hook send successfully');
+      res.end('Hook sent successfully');
     })
     .catch((error) => {
       console.error(error);
       res.status(400)
-      res.end('Hood sending failed');
+      res.end('Hook sending failed');
     })
   }
 });
