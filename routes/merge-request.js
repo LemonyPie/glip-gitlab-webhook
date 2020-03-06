@@ -44,7 +44,7 @@ router.post('/', function(req, res, next) {
     }
 
     if (req.body.object_attributes.description) {
-      body.attachments.fields.push({
+      body.attachments[0].fields.push({
         "title": "Desctipion",
         "value": req.body.object_attributes.description
       });
