@@ -1,0 +1,6 @@
+{
+    "env": {
+        "MERGE_REQUEST_HOOK_URL": "",
+        "NODE_ENV": "production"
+    }
+}
